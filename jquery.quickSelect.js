@@ -3,7 +3,9 @@
 		options = $.extend(true, {
 			iconUp: "&#9650;",
 			iconDown: "&#9660;",
-			minElemsBeforeGoingUp: 3
+			minElemsBeforeGoingUp: 3,
+			openEffect: "fadeIn",
+			closeEffect: "hide"
 		}, options);
 		$(this).filter("select").each(function(){
 			var thisElem = $(this);
@@ -11,17 +13,30 @@
 			if(typeof thisElem.data("qs-initialized") !== "undefined") return;
 			thisElem.data("qs-initialized", true);
 
-			thisElem.hide();
-			var main = $("<div class='qs'>").insertAfter(thisElem);
-			var fixed = $("<div class='qs-fixed'>").appendTo(main);
-			var dropdown = $("<div class='qs-dropdown'>").hide().appendTo(main);
+			var newDiv = function(_class, divOpts){
+				if(typeof _class == "object"){
+					divOpts = _class;
+					_class = undefined;
+				}
+				if(typeof _class == "undefined") _class = "";
+				divOpts = $.extend(true, {
+					"class": _class
+				}, divOpts);
+				return $("<div>", divOpts);
+			}
 
-			//var viewportArrow = $("<table class='qs-viewport-arrow' cellspacing='0' cellpadding='0'><tr><td class='qs-viewport-container'><div class='qs-viewport-sub-cont'><div class='qs-viewport'></div></div></td><td class='qs-arrow'></td></tr></table>").appendTo(fixed);
-			var viewportArrow = $("<div class='qs-viewport-arrow'><div class='qs-arrow'></div><div class='qs-viewport-container'><div class='qs-viewport'></div><div class='qs-shadow-viewport'></div></div></div>").appendTo(fixed);
-			var viewport = viewportArrow.find(".qs-viewport");
-			var arrow = viewportArrow.find(".qs-arrow");
-			var viewportContainer = viewportArrow.find(".qs-viewport-container");
-			var shadowViewport = viewportArrow.find(".qs-shadow-viewport");
+			thisElem.hide();
+			var tabAnchor = $("<a>",{"class":"qs-anchor", "href": "#"}).insertAfter(thisElem);
+
+			var main = newDiv('qs').appendTo(tabAnchor);
+			var fixed = newDiv('qs-fixed').appendTo(main);
+			var dropdown = newDiv('qs-dropdown').hide().appendTo(main);
+
+			var viewportArrow = newDiv('qs-viewport-arrow').appendTo(fixed);
+			var arrow = newDiv("qs-arrow").appendTo(viewportArrow);
+			var viewportContainer = newDiv("qs-viewport-container").appendTo(viewportArrow);
+			var viewport = newDiv("qs-viewport").appendTo(viewportContainer);
+			var shadowViewport = newDiv("qs-shadow-viewport").appendTo(viewportContainer);
 
 			
 			var adjustViewport = function(){
@@ -29,7 +44,6 @@
 					marginRight: arrow.outerWidth(true)+"px"
 				});
 			}
-
 			adjustViewport();
 
 			arrow.html(options.iconDown);
@@ -51,13 +65,21 @@
 				}
 				return selected;
 			}
-			var setSelected = function(opt, trigger){
-				if(typeof trigger === "undefined") trigger = true;
+			var setSelected = function(opt, _trigger){
+				var trigger;
+				if(typeof _trigger === "undefined") {
+					trigger = true;
+				} else {
+					trigger = _trigger;
+				}
+
+				var ret = $();
 				
 				thisOptions.each(function(){
 					if($(this).is(opt)){
 						if($(this).prop("selected") === true) trigger = false;
 						$(this).prop("selected", true);
+						ret = $(this);
 						$(this).data("qs-mirror").addClass('selected').siblings().removeClass('selected');
 						viewport.html(getText(opt));
 					} else {
@@ -66,6 +88,8 @@
 				});
 				
 				if(trigger) thisElem.trigger("change", [true]);
+
+				return ret;
 			}
 			var setHover = function(option){
 				option.addClass('hover').siblings().removeClass('hover');
@@ -124,20 +148,36 @@
 				if(dropdown.is(":visible")){
 					hideDropdown();
 				} else {
+					tabAnchor.focus();
 					setHover(getSelected().data("qs-mirror"));
 					dropdown.show();
-
 					checkSize();
-
 					dropdown.hide();
 
 
-					dropdown.fadeIn(100);
+					if(typeof options.openEffect == "function"){
+						options.openEffect.call(dropdown.get(0), {
+							quickSelect: main,
+							original: thisElem,
+							options: options
+						})
+					} else {
+						dropdown.fadeIn(100);
+					}
+
 					main.addClass('opened');
 				}
 			}
 			var hideDropdown = function(){
-				dropdown.hide();
+				if(typeof options.closeEffect == "function"){
+					options.closeEffect.call(dropdown.get(0), {
+						quickSelect: main,
+						original: thisElem,
+						options: options
+					})
+				} else {
+					dropdown.hide();
+				}
 				main.removeClass('opened');
 			}
 			$(window).on("resize", function(){
@@ -190,6 +230,35 @@
 			thisElem.on("change", function(e, hasToIgnore){
 				if(typeof hasToIgnore !== "undefined") return;
 				setSelected(getSelected());
+			});
+
+
+			tabAnchor.on("click", function(e){
+				e.preventDefault();
+			});
+
+			tabAnchor.on("keydown", function(e){
+				if(tabAnchor.is(":focus")){
+					if(e.which == 38 || (!dropdown.is(":visible") && e.which == 37 )){
+						e.preventDefault();
+						var previous = getSelected().prev();
+						if(previous.length > 0){
+							setHover(setSelected(previous).data("qs-mirror"));
+						}
+					} else if(e.which == 40 || (!dropdown.is(":visible") && e.which == 39 )) {
+						e.preventDefault();
+						var next = getSelected().next();
+						if(next.length > 0){
+							setHover(setSelected(next).data("qs-mirror"));
+						}
+					} else if(e.which == 13) {
+						e.preventDefault();
+						doDropdown();
+					} else if(e.which == 27) {
+						e.preventDefault();
+						hideDropdown();
+					}
+				}
 			});
 
 

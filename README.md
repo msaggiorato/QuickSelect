@@ -13,10 +13,11 @@ I hope you like this!
 Why should you use this instead of another plugin?
 -------------------------------------------
 
-* I try to keep this as small and lightweight as possible.
-* I keep this as responsive as possible.
+* I try to keep this as lightweight and fast as possible. It's only around 4KB minified.
+* It's also responsive.
 * It works with events tied to the original select box.
 * It let's you stylize almost the entire selectbox layout.
+* It key navigable, just like the standard select tag.
  
 Optional parameters
 -------------------
@@ -34,6 +35,22 @@ The icon that will be displayed when the dropdown is not visible.
 ### minElemsBeforeGoingUp
 This is the minimun number of options to display below the select box before trying to display it above the box. (You'll get this better if you play with it yourself.)
 **Default: 3**
+
+### openEffect
+**Default: "fadeIn"**
+This parameter allows you to override the effect used when the dropdown opens. If you want it to slide, just set this parameter to something like this.
+
+```javascript
+$('#myCoolSelect').QuickSelect({
+	openEffect: function(){
+		$(this).slideDown(100);
+	}
+});
+```
+
+### closeEffect
+**Default: "hide"**
+Same as above, but this is the effect used when the dropdown closes.
 
 How to Use
 ----------
@@ -68,6 +85,12 @@ IE Support
 ----------
 
 I haven't tested this on IE, but should work from IE8 and up. I'll update this later.
+
+TO-DOs
+----------
+
+* Support for multiple enabled selectors.
+* Support for optgroups.
 
 License
 -------

@@ -1,33 +1,4 @@
 (function($){
-	$.fn.onResize = function(callback){
-		return $(this).each(function(){
-			var thisObj = this;
-			var thisElem = $(this);
-			var timer;
-			var resetTimer;
-			var check;
-
-			var lastWidth = thisElem.width(),
-				lastHeight = thisElem.height();
-
-			check = function(){
-				if(thisElem.width() != lastWidth || thisElem.height() != lastHeight){
-					lastWidth = thisElem.width(),
-					lastHeight = thisElem.height();
-					callback.call(thisObj);
-				}
-				resetTimer();
-			}
-
-			resetTimer = function(){
-				clearTimeout(timer);
-				timer = setTimeout(check, 50);
-			}
-			resetTimer();
-
-			$(window).resize(check);
-		});
-	}
 	$.fn.QuickSelect = function(options){
 		options = $.extend(true, {
 			iconUp: "&#9650;",
@@ -36,20 +7,30 @@
 		}, options);
 		$(this).filter("select").each(function(){
 			var thisElem = $(this);
+
+			if(typeof thisElem.data("qs-initialized") !== "undefined") return;
+			thisElem.data("qs-initialized", true);
+
 			thisElem.hide();
 			var main = $("<div class='qs'>").insertAfter(thisElem);
 			var fixed = $("<div class='qs-fixed'>").appendTo(main);
 			var dropdown = $("<div class='qs-dropdown'>").hide().appendTo(main);
 
 			//var viewportArrow = $("<table class='qs-viewport-arrow' cellspacing='0' cellpadding='0'><tr><td class='qs-viewport-container'><div class='qs-viewport-sub-cont'><div class='qs-viewport'></div></div></td><td class='qs-arrow'></td></tr></table>").appendTo(fixed);
-			var viewportArrow = $("<div class='qs-viewport-arrow'><div class='qs-arrow'></div><div class='qs-viewport-container'><div class='qs-viewport'></div></div></div>").appendTo(fixed);
+			var viewportArrow = $("<div class='qs-viewport-arrow'><div class='qs-arrow'></div><div class='qs-viewport-container'><div class='qs-viewport'></div><div class='qs-shadow-viewport'></div></div></div>").appendTo(fixed);
 			var viewport = viewportArrow.find(".qs-viewport");
 			var arrow = viewportArrow.find(".qs-arrow");
 			var viewportContainer = viewportArrow.find(".qs-viewport-container");
+			var shadowViewport = viewportArrow.find(".qs-shadow-viewport");
 
-			viewportContainer.css({
-				marginRight: arrow.outerWidth(true)+"px"
-			});
+			
+			var adjustViewport = function(){
+				viewportContainer.css({
+					marginRight: arrow.outerWidth(true)+"px"
+				});
+			}
+
+			adjustViewport();
 
 			arrow.html(options.iconDown);
 
@@ -85,18 +66,6 @@
 				});
 				
 				if(trigger) thisElem.trigger("change", [true]);
-			}
-			var testSelected = function(text){
-				var oldW = viewport.width();
-				var oldText = viewport.html();
-				viewport.css("width", "");
-				viewport.html(text);
-				if(oldW < viewport.width()) {
-					viewport.width(viewport.width());
-				} else {
-					viewport.width(oldW);
-				}
-				viewport.html(oldText);
 			}
 			var setHover = function(option){
 				option.addClass('hover').siblings().removeClass('hover');
@@ -196,6 +165,7 @@
 				var thisOpt = $(this);
 				var optVal = thisOpt.attr("value");
 				var option = $("<div class='qs-option'>").appendTo(dropdown);
+				var shadowViewportItem = $("<div class='qs-viewport'>").html(getText(thisOpt)).appendTo(shadowViewport);
 				thisOpt.data("qs-mirror", option);
 
 				option.html(getText(thisOpt));
@@ -206,8 +176,6 @@
 				option.on("mouseenter", function(){
 					setHover($(this));
 				});
-
-				testSelected(getText(thisOpt));
 
 				if(thisOpt.prop("selected") === true){
 					setSelected(thisOpt, false);
@@ -223,17 +191,6 @@
 				if(typeof hasToIgnore !== "undefined") return;
 				setSelected(getSelected());
 			});
-
-
-			var adjust = function(){
-				thisOptions.each(function(){
-					testSelected(getText($(this)));
-				});
-			};
-			main.onResize(adjust);
-			$(window).one("load", adjust);
-
-
 
 
 		});

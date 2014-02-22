@@ -4,6 +4,11 @@
     box-sizing: border-box;
     text-shadow: none;
 }
+.qs-anchor {
+    display: inline-block;
+    vertical-align: bottom;
+    outline: none;
+}
 .qs {
     position: relative;
     display: inline-block;
@@ -27,6 +32,11 @@
     padding: 0px 4px;
     background: white;
     color: black;
+}
+.qs-anchor:focus .qs-fixed{
+    outline-color: rgb(77, 144, 254);
+    outline-style: auto;
+    outline-width: 5px;
 }
 .qs-fixed:hover {
     border-color: #7e7e7e;

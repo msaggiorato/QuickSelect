@@ -7,6 +7,12 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+
+    <link rel="stylesheet" type="text/css" href="jquery.quickSelect.css" media="screen" />
+
+    <link class="stylify" rel="stylesheet" type="text/css" href="jquery.quickSelect.theme.css" media="screen" />
+    <link class='stylify' href='http://fonts.googleapis.com/css?family=Roboto:300italic,300,700,700italic' rel='stylesheet' />
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -51,8 +57,23 @@
 <li>I keep this as responsive as possible.</li>
 <li>It works with events tied to the original select box.</li>
 <li>It let's you stylize almost the entire selectbox layout.</li>
-</ul><h2>
-<a name="optional-parameters" class="anchor" href="#optional-parameters"><span class="octicon octicon-link"></span></a>Optional parameters</h2>
+</ul>
+
+<h2><a name="dont-believe-me" class="anchor" href="#dont-believe-me"><span class="octicon octicon-link"></span></a>Don't believe me?</h2>
+
+<p>This is a common select box. It's not special. You can't beutify it.</p>
+
+<p>
+  <select class="cool-it">
+    <option value="1">This is an option</option>
+    <option value="2">Check this other one</option>
+    <option value="3">Finally the third!</option>
+  </select>
+</p>
+
+<p>But with QuickSelect, you can turn it into something like <a href="#" class="stylify">this</a>.</p>
+
+<h2><a name="optional-parameters" class="anchor" href="#optional-parameters"><span class="octicon octicon-link"></span></a>Optional parameters</h2>
 
 <p>QuickSelect supports optional parameters.</p>
 
@@ -134,6 +155,11 @@
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
+
+          <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+          <script src="jquery.quickSelect.js"></script>
+          <script src="javascripts/main.js"></script>
 
       </div>
     </div>

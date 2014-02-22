@@ -1,0 +1,53 @@
+.qs {
+    font-family: "Roboto";
+    font-weight: 300;
+    font-size: 14px;
+    text-shadow: none;
+}
+.qs-fixed {
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #C3C2C4;
+    padding: 0px;
+    overflow: hidden;
+}
+.qs-viewport {
+    padding: 4px;
+    padding-right: 0px;
+}
+.qs-fixed:hover, .qs.opened .qs-fixed {
+
+}
+.qs.open-above .qs-fixed:hover, .qs.open-above.opened .qs-fixed {
+
+}
+.qs-option {
+    margin: 0px 7px;
+    border-top: dotted 1px #515151;
+    padding: 3px;
+    line-height: 22px;
+}
+.qs-option:first-child {
+    border-top: none;
+}
+.qs-option.hover {
+    color: #9C8202;
+    font-weight: bold;
+    background: none;
+}
+.qs-dropdown {
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #C3C2C4;
+}
+.qs-arrow {
+    padding-left: 0px;
+    font-size: 14px;
+    width: 26px;
+    background: #555;
+    color: white;
+    padding: 4px;
+}
+.qs-fixed:hover .qs-arrow, .qs.opened .qs-arrow {
+    color: #FFD400;
+}

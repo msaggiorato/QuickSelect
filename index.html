@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>QuickSelect by msaggiorato</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>QuickSelect</h1>
+          <h2>A Quick replacement for the good old Select tags.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/msaggiorato/QuickSelect/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/msaggiorato/QuickSelect/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/msaggiorato/QuickSelect" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="quickselect" class="anchor" href="#quickselect"><span class="octicon octicon-link"></span></a>QuickSelect</h1>
+
+<p>A <em>Quick</em> replacement for the good old <em>Select</em> tags.</p>
+
+<h2>
+<a name="why-i-built-this-plugin" class="anchor" href="#why-i-built-this-plugin"><span class="octicon octicon-link"></span></a>Why I built this plugin?</h2>
+
+<p>This should be useful if you need to style some select box, without having extra headaches to worry about.</p>
+
+<p>I hope you like this!</p>
+
+<h2>
+<a name="why-should-you-use-this-instead-of-another-plugin" class="anchor" href="#why-should-you-use-this-instead-of-another-plugin"><span class="octicon octicon-link"></span></a>Why should you use this instead of another plugin?</h2>
+
+<ul>
+<li>I try to keep this as small and lightweight as possible.</li>
+<li>I keep this as responsive as possible.</li>
+<li>It works with events tied to the original select box.</li>
+<li>It let's you stylize almost the entire selectbox layout.</li>
+</ul><h2>
+<a name="optional-parameters" class="anchor" href="#optional-parameters"><span class="octicon octicon-link"></span></a>Optional parameters</h2>
+
+<p>QuickSelect supports optional parameters.</p>
+
+<h3>
+<a name="iconup" class="anchor" href="#iconup"><span class="octicon octicon-link"></span></a>iconUp</h3>
+
+<p>The icon that will be displayed when the dropdown is visible.<br><strong>Default: "▲"</strong></p>
+
+<h3>
+<a name="icondown" class="anchor" href="#icondown"><span class="octicon octicon-link"></span></a>iconDown</h3>
+
+<p>The icon that will be displayed when the dropdown is not visible.<br><strong>Default: "▼"</strong></p>
+
+<h3>
+<a name="minelemsbeforegoingup" class="anchor" href="#minelemsbeforegoingup"><span class="octicon octicon-link"></span></a>minElemsBeforeGoingUp</h3>
+
+<p>This is the minimun number of options to display below the select box before trying to display it above the box. (You'll get this better if you play with it yourself.)
+<strong>Default: 3</strong></p>
+
+<h2>
+<a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to Use</h2>
+
+<p>If you don't want to write any extra JS code, just add the <em>quick-select</em> class to your select box, and the plugin will automatically initialize.</p>
+
+<p>If you have something like this in your HTML.</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">"myCoolSelect"</span> <span class="na">name=</span><span class="s">"data"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"1"</span><span class="nt">&gt;</span>This is an option<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"2"</span><span class="nt">&gt;</span>And this is another<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"3"</span><span class="nt">&gt;</span>Here comes the boom<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"4"</span><span class="nt">&gt;</span>Kaboom!<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</pre></div>
+
+<p>Just do this with jQuery and you'll be good to go.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'#myCoolSelect'</span><span class="p">).</span><span class="nx">QuickSelect</span><span class="p">();</span>
+</pre></div>
+
+<p>Maybe using some FontAwesome icons as an option?</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'#myCoolSelect'</span><span class="p">).</span><span class="nx">QuickSelect</span><span class="p">({</span>
+    <span class="nx">iconDown</span><span class="o">:</span> <span class="s1">'&lt;i class="icon-collapse"&gt;&lt;/i&gt;'</span><span class="p">,</span>
+    <span class="nx">iconUp</span><span class="o">:</span><span class="s1">'&lt;i class="icon-collapse-top"&gt;&lt;/i&gt;'</span>
+<span class="p">});</span>
+</pre></div>
+
+<h2>
+<a name="ie-support" class="anchor" href="#ie-support"><span class="octicon octicon-link"></span></a>IE Support</h2>
+
+<p>I haven't tested this on IE, but should work from IE8 and up. I'll update this later.</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>The MIT License (MIT) Copyright (c) 2014 Matias Saggiorato.</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<p><strong>It means, you can freely fork and modify this project for commercial or non-comercial use!</strong></p>
+        </section>
+
+        <footer>
+          QuickSelect is maintained by <a href="https://github.com/msaggiorato">msaggiorato</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>

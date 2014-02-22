@@ -1,31 +1,4 @@
 (function($){
-	$.fn.onResize = function(callback){
-		return $(this).each(function(){
-			var thisObj = this;
-			var thisElem = $(thisObj);
-			var resetTimer;
-			var check;
-			var timer;
-
-			var lastWidth = thisElem.width(),
-				lastHeight = thisElem.height();
-
-			check = function(){
-				if(thisElem.width() != lastWidth || thisElem.height() != lastHeight){
-					lastWidth = thisElem.width(),
-					lastHeight = thisElem.height();
-					callback.call(thisObj);
-				}
-			}
-
-			timer = setInterval(check, 50);
-			$(window).resize(function(){
-				check();
-				clearInterval(timer);
-				timer = setInterval(check, 50);
-			});
-		});
-	}
 	$.fn.QuickSelect = function(options){
 		options = $.extend(true, {
 			iconUp: "&#9650;",
@@ -93,18 +66,6 @@
 				});
 				
 				if(trigger) thisElem.trigger("change", [true]);
-			}
-			var testSelected = function(text){
-				var oldW = viewport.width();
-				var oldText = viewport.html();
-				viewport.css("width", "");
-				viewport.html(text);
-				if(oldW < viewport.width()) {
-					viewport.width(viewport.width());
-				} else {
-					viewport.width(oldW);
-				}
-				viewport.html(oldText);
 			}
 			var setHover = function(option){
 				option.addClass('hover').siblings().removeClass('hover');
@@ -216,8 +177,6 @@
 					setHover($(this));
 				});
 
-				//testSelected(getText(thisOpt));
-
 				if(thisOpt.prop("selected") === true){
 					setSelected(thisOpt, false);
 				}
@@ -232,18 +191,6 @@
 				if(typeof hasToIgnore !== "undefined") return;
 				setSelected(getSelected());
 			});
-
-
-			/*var adjust = function(){
-				thisOptions.each(function(){
-					testSelected(getText($(this)));
-				});
-				adjustViewport();
-			};
-			main.onResize(adjust);
-			adjust();*/
-			//setTimeout(adjust, 500);
-			$(window).one("load", adjust);
 
 
 		});

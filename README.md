@@ -38,6 +38,7 @@ This is the minimun number of options to display below the select box before try
 
 ### openEffect
 **Default: "fadeIn"**
+
 This parameter allows you to override the effect used when the dropdown opens. If you want it to slide, just set this parameter to something like this.
 
 ```javascript
@@ -50,6 +51,7 @@ $('#myCoolSelect').QuickSelect({
 
 ### closeEffect
 **Default: "hide"**
+
 Same as above, but this is the effect used when the dropdown closes.
 
 How to Use

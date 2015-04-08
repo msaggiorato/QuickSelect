@@ -79,10 +79,12 @@
 					if($(this).is(opt)){
 						if($(this).prop("selected") === true) trigger = false;
 						$(this).prop("selected", true);
+						$(this).attr("selected", "");
 						ret = $(this);
 						$(this).data("qs-mirror").addClass('selected').siblings().removeClass('selected');
 						viewport.html(getText(opt));
 					} else {
+						$(this).removeAttr('selected');
 						$(this).prop("selected", false);
 					}
 				});
